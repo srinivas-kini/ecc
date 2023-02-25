@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
 
 
-export LOC=$HADOOP_HOME/bin
+export SCRIPTS_DIR=$HADOOP_HOME/bin
+export MAPPER="part1mapper.py"
+export REDUCER="part1reducer.py"
 
-chmod 777 $LOC/part1mapper.py $LOC/part1reducer.py
+chmod 777 $SCRIPTS_DIR/$MAPPER $SCRIPTS_DIR/$REDUCER
 
 # Run streaming job
 hadoop jar $STREAMING \
  -D mapreduce.job.reduces=1 \
  -input "input/sample.log" \
  -output p1output \
- -mapper "python3 part1mapper.py" \
- -reducer "python3 part1reducer.py" \
- -file "${LOC}/part1mapper.py" \
- -file "${LOC}/part1reducer.py" \
+ -mapper "python3 ${MAPPER}" \
+ -reducer "python3 ${REDUCER}" \
+ -file "${SCRIPTS_DIR}/${MAPPER}" \
+ -file "${SCRIPTS_DIR}/${REDUCER}" \
 
-# Print o/p
-hadoop fs -cat /user/exouser/p1output/part-00000 > $HADOOP_HOME/bin/part1output.txt
+# Print output
+hadoop fs -cat /user/exouser/p1output/part-00000 > $HADOOP_HOME/bin/output.txt
+cat output.txt
 
-# Remove o/p directory
+# Remove output directory from HDFS
 hadoop fs -rm -r p1output
