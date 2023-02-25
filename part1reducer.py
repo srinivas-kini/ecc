@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-import logging
+import heapq
 from operator import itemgetter
 from collections import defaultdict
 
@@ -17,7 +17,10 @@ for line in sys.stdin:
   except ValueError:
     pass
 
-sorted_ip = sorted(dict_ip.items(), key=itemgetter(0))
+max_heap = []
 
-for ip, count in sorted_ip:
-  print('%s\t%s' % (ip, count))
+for ip, count in dict_ip.items():
+  heapq.heappush(max_heap, (-count, ip))
+
+for count, ip in heapq.nsmallest(3, max_heap):
+  print(f'IP: {ip}, count: {-count}')
