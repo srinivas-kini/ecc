@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 export SCRIPTS_DIR=$HADOOP_HOME/bin
 export MAPPER="part1mapper.py"
 export REDUCER="part1reducer.py"
