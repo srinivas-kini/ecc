@@ -11,6 +11,11 @@ export REDUCER2="part2reducer2.py"
 export OUTPUT_DIR_TMP="p2output"
 export OUTPUT_DIR_FINAL="p2final"
 
+# Get the time range from the user or set it to the default value
+export DEFAULT_TIME_RANGE="3-4"
+export TIME_RANGE=${1:-DEFAULT_TIME_RANGE}
+
+
 chmod 777 $SCRIPTS_DIR/$MAPPER $SCRIPTS_DIR/$REDUCER $SCRIPTS_DIR/$MAPPER2 $SCRIPTS_DIR/$REDUCER2
 
 # MapReduce Phase 1
@@ -29,7 +34,7 @@ hadoop jar $STREAMING \
  -input "/user/exouser/${OUTPUT_DIR_TMP}/part-00000" \
  -output $OUTPUT_DIR_FINAL \
  -mapper "python3 ${MAPPER2}" \
- -reducer "python3 ${REDUCER2} 3-4" \
+ -reducer "python3 ${REDUCER2} ${TIME_RANGE}" \
  -file "${SCRIPTS_DIR}/${MAPPER2}" \
  -file "${SCRIPTS_DIR}/${REDUCER2}" \
 
