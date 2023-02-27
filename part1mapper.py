@@ -2,7 +2,6 @@
 
 import re
 import sys
-import logging
 
 pat = re.compile('(?P<ip>\d+.\d+.\d+.\d+).*?\d{4}:(?P<hour>\d{2}):\d{2}.*? ')
 
