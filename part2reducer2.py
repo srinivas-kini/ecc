@@ -14,7 +14,7 @@ for line in sys.stdin:
   data = json.loads(line)
   hour = int(data['hour'])
 
-  if hour in (start, end):
+  if hour in range(start, end + 1):
     heapq.heappush(heap, (data['count'], data['ip'], data['hour']))
 
 
