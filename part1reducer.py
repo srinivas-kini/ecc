@@ -1,6 +1,7 @@
+#!/usr/bin/env python
+
 import sys
 import heapq
-from operator import itemgetter
 from collections import defaultdict
 
 dict_ip = defaultdict(int)
@@ -13,13 +14,13 @@ for line in sys.stdin:
     dict_ip[ip] += num
 
   except ValueError:
-  pass
+    pass
 
-max_heap = []
+heap = []
 
 for ip, count in dict_ip.items():
-  heapq.heappush(max_heap, (-count, ip))
+  heapq.heappush(heap, (count, ip))
 
-for count, ip in heapq.nsmallest(3, max_heap):
+for count, ip in heapq.nlargest(3, heap):
   hour, ipaddr = ip.split(' ')
-  print(f'Hour: {hour}, IP: {ipaddr}, count: {-count}')
+  print(f'Hour: {hour}, IP: {ipaddr}, Count: {count}')
