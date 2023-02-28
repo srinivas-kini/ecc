@@ -16,11 +16,19 @@ for line in sys.stdin:
   except ValueError:
     pass
 
-heap = []
+hourly_records = defaultdict(list)
 
 for ip, count in dict_ip.items():
-  heapq.heappush(heap, (count, ip))
+  hour, ip = ip.split(' ')
+  hour = int(hour)
+  hourly_records[hour].append((ip, count))
 
-for count, ip in heapq.nlargest(3, heap):
-  hour, ipaddr = ip.split(' ')
-  print(f'Hour: {hour}, IP: {ipaddr}, Count: {count}')
+
+for hour, records in hourly_records.items():
+  records = list(sorted(records, key=lambda p: p[1], reverse=True))[:3]
+
+  print(f'Hour: {hour}')
+  for ip, count in records:
+    print(f'IP: {ip}, Count: {count}')
+
+  print('\n')
