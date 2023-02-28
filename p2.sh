@@ -13,10 +13,13 @@ export OUTPUT_DIR_FINAL="p2final"
 
 # Get the time range from the user or set it to the default value
 export DEFAULT_TIME_RANGE="3-4"
-export TIME_RANGE=${1:-DEFAULT_TIME_RANGE}
+export TIME_RANGE=${1:-$DEFAULT_TIME_RANGE}
 
 
 chmod 777 $SCRIPTS_DIR/$MAPPER $SCRIPTS_DIR/$REDUCER $SCRIPTS_DIR/$MAPPER2 $SCRIPTS_DIR/$REDUCER2
+
+# Remove o/p dir if present
+hadoop fs -rm -r /user/exouser/p2*
 
 # MapReduce Phase 1
 hadoop jar $STREAMING \
