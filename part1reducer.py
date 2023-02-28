@@ -23,7 +23,6 @@ for ip, count in dict_ip.items():
   hour = int(hour)
   hourly_records[hour].append((ip, count))
 
-
 for hour, records in hourly_records.items():
   records = list(sorted(records, key=lambda p: p[1], reverse=True))[:3]
 
